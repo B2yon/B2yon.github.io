@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Rangga - Web Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(34, 197, 94, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(51, 65, 85, 0.3);
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(59, 130, 246, 0.3) 20%, 
+                rgba(168, 85, 247, 0.3) 80%, 
+                transparent);
+        }
+
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06d6a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            letter-spacing: 0.025em;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Info Cards */
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: rgba(30, 41, 59, 0.3);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(51, 65, 85, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06d6a0);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .info-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            background: rgba(30, 41, 59, 0.5);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.25),
+                0 0 30px rgba(59, 130, 246, 0.1);
+        }
+
+        .info-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .info-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.025em;
+        }
+
+        .info-content {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(51, 65, 85, 0.3);
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .contact-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: #f1f5f9;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .contact-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 1px;
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-item {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: rgba(51, 65, 85, 0.2);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .contact-item:hover {
+            transform: translateX(12px);
+            background: rgba(51, 65, 85, 0.4);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 0 20px rgba(59, 130, 246, 0.1);
+        }
+
+        .contact-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-right: 0.5rem;
+        }
+
+        .contact-link {
+            color: #60a5fa;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .contact-link:hover {
+            color: #3b82f6;
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Specific contact item colors */
+        .email-item:hover::before { background: linear-gradient(180deg, #ef4444, #dc2626); }
+        .instagram-item:hover::before { background: linear-gradient(180deg, #ec4899, #be185d); }
+        .whatsapp-item:hover::before { background: linear-gradient(180deg, #10b981, #059669); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .footer::before {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #475569, transparent);
+            margin: 0 auto 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header { animation: fadeInUp 0.8s ease-out; }
+        .info-section { animation: fadeInUp 0.8s ease-out 0.2s both; }
+        .contact-section { animation: fadeInUp 0.8s ease-out 0.4s both; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .header { padding: 3rem 2rem; }
+            .name { font-size: 2.5rem; }
+            .tagline { font-size: 1.1rem; }
+            .description { font-size: 1rem; }
+            .contact-section { padding: 2rem; }
+            .contact-item { padding: 1.25rem; }
+            .contact-content { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .name { font-size: 2rem; }
+            .info-section { grid-template-columns: 1fr; }
+            .contact-item:hover { transform: translateX(8px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <section class="header">
+            <h1 class="name">Rangga Portfolio</h1>
+            <p class="tagline">Aspiring Web Developer & Coding Enthusiast</p>
+            <p class="description">
+                Hai! Nama saya Rangga, seorang pelajar yang sedang belajar ngoding. 
+                Saya passionate dalam web development dan selalu eager untuk belajar teknologi baru.
+            </p>
+        </section>
+
+        <!-- Info Cards -->
+        <section class="info-section">
+            <div class="info-card">
+                <span class="info-icon">🎓</span>
+                <h3 class="info-title">Education</h3>
+                <p class="info-content">15 Tahun - Siswa SMA<br>Fokus pada teknologi dan programming</p>
+            </div>
+
+            <div class="info-card">
+                <span class="info-icon">💻</span>
+                <h3 class="info-title">Currently Learning</h3>
+                <p class="info-content">Web Development<br>HTML, CSS, JavaScript & more</p>
+            </div>
+
+            <div class="info-card">
+                <span class="info-icon">🎯</span>
+                <h3 class="info-title">Interests</h3>
+                <p class="info-content">Coding, Technology, Web Design<br>Always exploring new things!</p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <h2 class="contact-title">Get In Touch</h2>
+            <ul class="contact-list">
+                <li class="contact-item email-item">
+                    <div class="contact-content">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <span class="contact-label">Email:</span>
+                            <a href="mailto:BeyonBelajar@gmail.com" class="contact-link">BeyonBelajar@gmail.com</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="contact-item instagram-item">
+                    <div class="contact-content">
+                        <span class="contact-icon">📱</span>
+                        <div>
+                            <span class="contact-label">Instagram:</span>
+                            <a href="https://instagram.com/BeyonNgoding" target="_blank" class="contact-link">@BeyonNgoding</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="contact-item whatsapp-item">
+                    <div class="contact-content">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <span class="contact-label">WhatsApp:</span>
+                            <a href="https://wa.me/6281234567890" target="_blank" class="contact-link">+62 812-3456-7890</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 Rangga Portfolio • Built with passion and dedication</p>
+        </footer>
+    </div>
+</body>
+</html>
+
+
